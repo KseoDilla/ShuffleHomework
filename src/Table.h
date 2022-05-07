@@ -16,7 +16,7 @@ class Table
         //@brief a destructor
         ~Table();
 
-        //@brief Method to place cards onto the table's deck
+        //@brief Method to place cards onto the table's deck treated like a stack
         //@param card represents the card to insert onto the table's deck
         void placeCard(int32_t card);
         

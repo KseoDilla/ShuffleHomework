@@ -21,9 +21,10 @@ pipeline {
                 }
             }
         }
-        stage('Coverage')
+        //TODO: not ready
+        /*stage('Coverage')
         {
-            /*agent
+            agent
             {
                 dockerfile
                 {
@@ -33,7 +34,7 @@ pipeline {
                     label 'shuffle-buildenv'
                     args '--target shuffle-buildenv'
                 }
-            }*/
+            }
             steps
             {
                 script
@@ -48,7 +49,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
     }
     post
     {

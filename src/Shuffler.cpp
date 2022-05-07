@@ -1,17 +1,17 @@
 #include <deque> //already included in the header file but it's nice to be explicit
-#include <iostream> //for print32_ting std::cout
+#include <iostream> //for printing std::cout
 #include "Shuffler.h"
 #include <stdint.h>
 
 Shuffler::Shuffler()
-:m_deck(), m_table()
+:m_deck(0), m_table()
 {
 }
 
 
 
-Shuffler::Shuffler(std::deque<int32_t>& cards)
-: m_deck(cards), m_table()
+Shuffler::Shuffler(int32_t numOfCards)
+: m_deck(numOfCards), m_table()
 {
 }
 
@@ -30,7 +30,7 @@ int32_t Shuffler::start()
     while(originalDeck != m_deck)
     {
         //if it's the first round than originalDeck has not been populated
-        //int32_tialize it to remember what our deck looked like
+        //intialize it to remember what our deck looked like
         if(numOfRounds == 0)
         {
             originalDeck = m_deck;
@@ -39,9 +39,9 @@ int32_t Shuffler::start()
         //Let's shuffle!
         shuffle();
 
-        //print32_t iteration to provide feedback
+        //print iteration to provide feedback
         std::cout << "Round " <<  ++numOfRounds << ": ";
-        m_deck.print32_t();
+        m_deck.print();
         std::cout << std::endl; 
     }
     std::cout << "...Done!" << std::endl;

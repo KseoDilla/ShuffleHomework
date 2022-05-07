@@ -14,7 +14,7 @@ class Shuffler
         Shuffler();
 
         //@brief parameterized constructor
-        Shuffler(std::deque<int32_t>& cards);
+        Shuffler(int32_t numOfCards);
 
 
         //@brief destructor
