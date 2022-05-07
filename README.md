@@ -27,6 +27,7 @@ docker build . -f  docker/Dockerfile --tag shuffle-service
 ## How to run the docker app:
 ```
 docker run -it shuffle-service
+docker run -it shuffle-service 32
 ```
 
 ## How to compile and debug the program:
@@ -40,7 +41,6 @@ docker run -it -u $(id -u):$(id -g) -w ${PWD}:${PWD} -v ${PWD} shuffle-buildenv 
 ```
 make clean
 make -j8
-make exec #this will run the binary for you
 ```
 > Running make's default target will run two targets (shuffle and test)
 3. You can also run the targets individually
@@ -48,13 +48,9 @@ make exec #this will run the binary for you
 make shuffle
 make test
 ```
-4. There is also a target for generating coverage
-```
-make coverage
-```
 
 ## Improvements that could be made
-- [ ] Fix code coverage (sometimes it shows 0% for src)
+- [ ] Fix code coverage
 - [ ] Deliver a local Jenkins
 - [ ] Add a documenting tool
 - [ ] Fix makefile to create object files so they can be linked to unit tests

@@ -1,5 +1,5 @@
 #include <deque> //already included in the header file but it's nice to be explicit
-#include <iostream> //for print32_ting std::cout
+#include <iostream> //for printing std::cout
 #include "Shuffler.h"
 #include <stdint.h>
 
@@ -30,7 +30,7 @@ int32_t Shuffler::start()
     while(originalDeck != m_deck)
     {
         //if it's the first round than originalDeck has not been populated
-        //int32_tialize it to remember what our deck looked like
+        //intialize it to remember what our deck looked like
         if(numOfRounds == 0)
         {
             originalDeck = m_deck;

@@ -31,7 +31,7 @@ void sighandler(int32_t signal)
 
 
 
-//@brief method to help grab the list of inputs when the docker service is ran int32_teractively
+//@brief method to help grab the list of inputs when the docker service is ran interactively
 //@param inputList a container with 
 //@param deckOfCards the user's input 
 int32_t grabNewInput(std::string initialArg)
