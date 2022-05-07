@@ -4,8 +4,7 @@
 #include <stdint.h>
 
 
-class DeckTest : public ::testing::Test
-{};
+class DeckTest : public ::testing::Test {};
 
 //test default constructor
 //test isEmpty
@@ -19,8 +18,8 @@ TEST(Deck_Test, DeckConstructor)
 //test getCards
 TEST(Deck_Test, DeckParameterConstructor)
 {
-    std::deque<int32_t> cards = { 1, 2, 3, 4, 5, 6, 7, 8};
-    Deck deck(cards);
+    std::deque<int32_t> cards = { 1, 2, 3, 4, 5, 6 , 7, 8};
+    Deck deck(8);
 
     EXPECT_EQ(cards, deck.getCards());
 }
@@ -30,7 +29,7 @@ TEST(Deck_Test, DeckParameterConstructor)
 TEST(Deck_Test, DeckCopyConstructor)
 {
     std::deque<int32_t> cards = { 1, 2, 3, 4, 5 };
-    Deck deck1(cards);
+    Deck deck1(8);
     Deck deck2;
 
     EXPECT_NE(deck1, deck2);
@@ -45,7 +44,7 @@ TEST(Deck_Test, DeckCopyConstructor)
 TEST(Deck_TEST, DeckPopFront)
 {
     std::deque<int32_t> cards = { 1, 2, 3, 4, 5 };
-    Deck deck1(cards);
+    Deck deck1(5);
 
     deck1.popFront(false); //put the card at the bottom of the deck
     EXPECT_NE(cards, deck1.getCards());
@@ -63,7 +62,7 @@ TEST(Deck_TEST, DeckPopFront)
 TEST(Deck_TEST, DeckPushFront)
 {
     std::deque<int32_t> cards = { 1, 2, 3, 4, 5 };
-    Deck deck1(cards);
+    Deck deck1(5);
 
     deck1.pushFront(1);
     cards.push_front(1);

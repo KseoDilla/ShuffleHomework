@@ -10,9 +10,13 @@ Deck::Deck()
 {
 }
 
-Deck::Deck(std::deque<int32_t>& cards)
-: m_cards(cards)
+Deck::Deck(int32_t numOfCards)
+: m_cards()
 {
+    for(int32_t i = 1; i <= numOfCards; ++i)
+    {
+        m_cards.push_back(i);
+    }
 }
 
 
@@ -46,12 +50,12 @@ void Deck::putBelowDeck()
     m_cards.pop_front();
 }
 
-void Deck::print32_t() const
+void Deck::print() const
 {
-    //print32_t the deque backwards like you're reading the cards face down
+    //print the deck in order
     std::for_each(
-            m_cards.rbegin(),
-            m_cards.rend(),
+            m_cards.begin(),
+            m_cards.end(),
             [](int32_t const &i) {
             std::cout << i << ' ';
             });

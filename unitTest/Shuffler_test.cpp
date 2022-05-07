@@ -1,7 +1,5 @@
 #include "gtest/gtest.h"
-#include "../src/Deck.cpp"
-#include "../src/Shuffler.cpp"
-#include "../src/Table.cpp"
+#include "../src/Shuffler.h"
 #include <stdint.h>
 
 
@@ -17,8 +15,7 @@ class ShufflerTest : public ::testing::Test
     //For test fixtures
     virtual void SetUp()
     {
-        std::deque<int32_t> deckOfCards = { 8, 3, 9, 10, 4, 6, 7, 2 };
-        pShuffler = std::make_unique<Shuffler>(deckOfCards);
+        pShuffler = std::make_unique<Shuffler>(8);
     }
 
     virtual void TearDown()
@@ -31,8 +28,8 @@ class ShufflerTest : public ::testing::Test
 // Test the constructor
 TEST(ShufflerStandAlone_Test, ShufflerConstructor)
 {
-    std::deque<int32_t> deckOfCards = { 3, 5, 7, 9, 10, 8, 20 };
-    Shuffler sd(deckOfCards);
+    std::deque<int32_t> deckOfCards = { 1, 2, 3, 4, 5, 6, 7, 8 };
+    Shuffler sd(8);
     //ensure the deque was copied and the class has a copy - they should be equal
     EXPECT_EQ(deckOfCards, sd.getDeck());
     
@@ -52,22 +49,18 @@ TEST(ShufflerStandAlone_Test, ShufflerPowersOf2)
 {
     //4 cards take 2 rounds
     std::deque<int32_t> deckOfCards = { 1, 2, 3, 4 };
-    Shuffler sd(deckOfCards);
+    Shuffler sd(4);
     //ensure the deque was copied and the class has a copy - they should be equal
     EXPECT_EQ(2, sd.start());
 
 
-   deckOfCards = { 1, 2, 3, 4, 5, 6, 7, 8}; 
-   sd = Shuffler(deckOfCards);
+   sd = Shuffler(8);
    EXPECT_EQ(4, sd.start());
     
-   deckOfCards = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}; 
-   sd = Shuffler(deckOfCards);
+   sd = Shuffler(16);
    EXPECT_EQ(4, sd.start());
 
-   deckOfCards = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-              17, 18, 19, 20, 21, 22, 23, 24, 25, 26 ,27, 28, 29, 30, 31, 32}; 
-   sd = Shuffler(deckOfCards);
+   sd = Shuffler(32);
    EXPECT_EQ(12, sd.start());
 }
 
