@@ -4,14 +4,14 @@
 #include <stdint.h>
 
 Shuffler::Shuffler()
-:m_deck(), m_table()
+:m_deck(0), m_table()
 {
 }
 
 
 
-Shuffler::Shuffler(std::deque<int32_t>& cards)
-: m_deck(cards), m_table()
+Shuffler::Shuffler(int32_t numOfCards)
+: m_deck(numOfCards), m_table()
 {
 }
 
@@ -39,9 +39,9 @@ int32_t Shuffler::start()
         //Let's shuffle!
         shuffle();
 
-        //print32_t iteration to provide feedback
+        //print iteration to provide feedback
         std::cout << "Round " <<  ++numOfRounds << ": ";
-        m_deck.print32_t();
+        m_deck.print();
         std::cout << std::endl; 
     }
     std::cout << "...Done!" << std::endl;

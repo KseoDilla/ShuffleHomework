@@ -11,7 +11,7 @@ class Deck
         Deck();
 
         //@brief parameterized constructor
-        Deck(std::deque<int32_t>& deck);
+        Deck(int32_t numOfCards);
 
         //@brief copy constructor
         Deck(Deck& incomingDeck);
@@ -35,11 +35,11 @@ class Deck
         int32_t popFront(const bool shuffleMode);
 
         //@brief place it on top of the deck - this is used by the table class when the card is discarded to the table
-        //@param card - an int32_teger representing the card's value
+        //@param card - an integer representing the card's value
         void pushFront(int32_t card);
 
-        //@brief this print32_t method will print32_t LIFO since it's a stack of cards
-        void print32_t() const;
+        //@brief this printt method will print FIFO
+        void print() const;
 
         //@brief overloaded equal operator to help determine if the decks are equal
         bool operator==(const Deck& rhs) const;

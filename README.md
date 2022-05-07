@@ -26,7 +26,7 @@ docker build . -f  docker/Dockerfile --tag shuffle-service
 
 ## How to run the docker app:
 ```
-docker run -it shuffle-service 1 2 3 4 5 6 7 8
+docker run -it shuffle-service
 ```
 
 ## How to compile and debug the program:

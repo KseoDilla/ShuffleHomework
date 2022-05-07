@@ -21,7 +21,8 @@ pipeline {
                 }
             }
         }
-        stage('Coverage')
+        //TODO: not ready
+        /*stage('Coverage')
         {
             /*agent
             {
@@ -48,7 +49,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
     }
     post
     {

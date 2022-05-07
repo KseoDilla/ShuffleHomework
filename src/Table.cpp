@@ -35,6 +35,7 @@ void Table::clear()
 }
 
 
+
 bool Table::isEmpty()
 {
     return m_deck.isEmpty();

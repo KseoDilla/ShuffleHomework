@@ -16,7 +16,7 @@ RUN apk add --no-cache \
 WORKDIR /tmp/homework
 COPY . /tmp/homework
 RUN make -j8 && \
-    cp /tmp/homework/src/bin/shuffle /tmp/shuffle && \
+    cp /tmp/homework/bin/shuffle /tmp/shuffle && \
     rm -rf /tmp/homework
 
 #########################

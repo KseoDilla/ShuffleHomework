@@ -3,28 +3,23 @@
 #include "../src/Table.h"
 
 
-class TableTest : public ::testing::Test
-{};
+class TableTest : public ::testing::Test {};
 
 
-
-//very small test
+//unit test for table constructor
+//also tests placeCard(), getDeck(), isEmpty()
 TEST(Table_Test, TableConstructor)
 {
     Table table;
-    std::deque<int32_t> cards = { 4, 3, 2, 1 }; //4 is on top
-    Deck deck(cards);
+    Deck deck(4);
 
-    for(uint32_t i = 1; i < 5; ++i)
+    //the cards are placed down onto the table as a stack
+    //place the cards 
+    for(uint32_t i = 4; i > 0; --i)
     {
         table.placeCard(i);
     }
-    //the list of cards should be in the same order
     EXPECT_EQ(deck.getCards(), table.getDeck().getCards());
-
-    cards = { 3, 2, 4, 1};
-    deck = Deck(cards);
-    EXPECT_NE(deck.getCards(), table.getDeck().getCards());
 
     table.clear();
     EXPECT_TRUE(table.isEmpty());

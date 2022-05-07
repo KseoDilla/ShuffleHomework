@@ -13,7 +13,6 @@
 #include "Shuffler.h" //library for shuffling the users's input of cards
 #include <sstream> //sstream to help tokenize the input
 #include <stdint.h>
-#include <vector> //vector for easier input processing
 
 
 //@brief A signal handler to have the program end quietly
@@ -32,91 +31,67 @@ void sighandler(int32_t signal)
 
 
 
-//@brief helper function to read in the input
-void ReadInDeck(std::vector<std::string> inputList,
-                std::deque<int32_t>& deckOfCards)
-{
-    std::string lastNum;
-    try
-    {
-        deckOfCards.clear();
-        for(std::string nums : inputList)
-        {
-            lastNum = nums;
-            deckOfCards.push_front(stoi(nums));
-        }
-    }
-    catch(std::invalid_argument &e)
-    {
-        std::cerr << "Invalid argument! Please provide numbers only." << std::endl; 
-    }
-    catch(std::out_of_range& e)
-    {
-        std::cerr << "Invalid argument! The number " << lastNum  << " is too large" << std::endl;
-    }
-    std::cout << "User's input of cards (LIFO): ";
-    std::for_each(
-            deckOfCards.rbegin(),
-            deckOfCards.rend(),
-            [](int32_t const &i) {
-            std::cout << i << ' ';
-            });
-    std::cout << std::endl;
-}
-
-
 //@brief method to help grab the list of inputs when the docker service is ran int32_teractively
 //@param inputList a container with 
 //@param deckOfCards the user's input 
-void grabNewInput(std::deque<int32_t>& deckOfCards)
+int32_t grabNewInput(std::string initialArg)
 {
+    std::string input;
     while(true)
     {
         try
         {
-            std::vector<std::string> inputList;
-            std::cout << "Please provide a new list of cards (provide an empty list or ctrl+c to quit): ";
-            std::string input;
-            std::getline(std::cin, input);
-            if(input.empty())
+            if(!initialArg.empty())
             {
-                exit(0);
+                input = initialArg;
             }
-            std::stringstream ss(input);
-            inputList.clear();
-            while(getline(ss, input, ' '))
+            else
             {
-                inputList.push_back(input);
+                std::cout << "Please provide a new deck size (provide an empty input or ctrl+c to quit): ";
+                std::getline(std::cin, input);
+                if(input.empty())
+                {
+                    exit(0);
+                }
             }
-            ReadInDeck(inputList, deckOfCards);
-            break;
+            return stoi(input);
         }
-        catch(std::exception &e)
+        catch(std::invalid_argument &e)
         {
-            std::cerr << e.what() << std::endl;
+            std::cerr << "Invalid argument! Please provide numbers only." << std::endl; 
         }
+        catch(std::out_of_range& e)
+        {
+            std::cerr << "Invalid argument! The input " << input  << " is too large" << std::endl;
+        }        
     }
+    return 0;
 }
 
 
 
 //@brief method to help start shuffling and prompt for new inputs
 //@param inputList the user's input
-int32_t begin(std::vector<std::string>& inputList)
+int32_t begin(std::string initialArg)
 {
+    int numOfCards = 0;
+    bool firstRun = true;
     try
     {
-        std::deque<int32_t> deckOfCards;
-        ReadInDeck(inputList, deckOfCards);
         while(true)
         {
-            Shuffler shuffle(deckOfCards);
+            numOfCards = firstRun ? grabNewInput(initialArg) : grabNewInput("");
+            firstRun = false;
+            Shuffler shuffle(numOfCards);
             int32_t numOfRounds = shuffle.start();
             std::cout << std::endl;
             std::cout << "It takes " << numOfRounds << " rounds to shuffle this deck back into its original order" << std::endl;
             std::cout << std::endl;
-            grabNewInput(deckOfCards);
         }
+    }
+    catch(std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
     }
     catch(...)
     {
@@ -127,15 +102,15 @@ int32_t begin(std::vector<std::string>& inputList)
 
 
 
-//@brief Main entry point32_t
+//@brief Main entry point
 //@param argc the number of arguments provided - there is always at least 1 (the program name)
 //@param argv the char*[] containing the list of args initially passed to this program
-int32_t main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
     std::signal(SIGINT, sighandler);
-    std::vector<std::string> inputList;
+    std::string initialArg;
     if (argc > 1) {
-        inputList.assign(argv + 1, argv + argc);
+        initialArg = argv[1];
     }
-    return begin(inputList);
+    return begin(initialArg);
 };
